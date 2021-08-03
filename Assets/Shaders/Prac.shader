@@ -1,4 +1,4 @@
-﻿Shader "Sanghun/Practice"
+﻿Shader "Practice/Prac"
 {
 	SubShader
 	{
