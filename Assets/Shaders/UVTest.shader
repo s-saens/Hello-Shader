@@ -20,7 +20,7 @@
         {
             float2 uv_MainTex;
         };
-
+        
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed4 c = tex2D (_MainTex, fmod((IN.uv_MainTex * _Time.y * _Velocity), 3));

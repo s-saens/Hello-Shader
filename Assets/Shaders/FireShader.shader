@@ -3,7 +3,7 @@ Shader "Custom/FireShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "black" {}
-        _SubTex ("SubTexture", 2D) = "white" {}
+        _SubTex ("SubTexture", 2D) = "gray" {}
     }
     SubShader
     {
@@ -23,10 +23,11 @@ Shader "Custom/FireShader"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
-            fixed4 d = tex2D(_SubTex, float2(IN.uv_MainTex.x, IN.uv_MainTex.y - _Time.y));
-            o.Emission = c.rgb + d.rgb;
-            o.Alpha = c.a * d.a;
+            fixed4 d = tex2D(_SubTex, float2(IN.uv_SubTex.x, IN.uv_SubTex.y - _Time.y));
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex + d.r * 0.2);
+            
+            o.Emission = c.rgb;
+            o.Alpha = c.a;
         }
         ENDCG
     }
