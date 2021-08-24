@@ -24,10 +24,16 @@ Shader "Custom/FireShader"
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed4 d = tex2D(_SubTex, float2(IN.uv_SubTex.x, IN.uv_SubTex.y - _Time.y));
-            fixed4 c = tex2D(_MainTex, IN.uv_MainTex + d.r * 0.2);
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex + d.r - 0.07);
             
             o.Emission = c.rgb;
             o.Alpha = c.a;
+
+            if(IN.uv_MainTex.y < 0.05 || IN.uv_MainTex.y > 0.95 || IN.uv_MainTex.x < 0.05 || IN.uv_MainTex.x > 0.95)
+            {
+                o.Emission = 0;
+                o.Alpha = 1;
+            }
         }
         ENDCG
     }
