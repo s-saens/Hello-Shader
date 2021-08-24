@@ -22,7 +22,7 @@
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-            o.Albedo = IN.uv_MainTex.y;
+            o.Albedo = float3(IN.uv_MainTex.x, IN.uv_MainTex.y, 0.5);
             o.Alpha = c.a;
         }
         ENDCG
