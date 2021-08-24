@@ -3,6 +3,7 @@
     Properties
     {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _Velocity ("Flow Speed", float) = 2
     }
     SubShader
     {
@@ -13,6 +14,7 @@
         #pragma surface surf Standard
 
         sampler2D _MainTex;
+        float _Velocity;
 
         struct Input
         {
@@ -21,8 +23,8 @@
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-            o.Albedo = float3(IN.uv_MainTex.x, IN.uv_MainTex.y, 0.5);
+            fixed4 c = tex2D (_MainTex, fmod((IN.uv_MainTex * _Time.y * _Velocity), 3));
+            o.Albedo = c.rgb;
             o.Alpha = c.a;
         }
         ENDCG
